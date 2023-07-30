@@ -1,4 +1,4 @@
-# sfmm - Salesforce Module Manager (v1.0.3)
+# sfmm - Salesforce Module Manager
 
 ## Install and Usage
 
