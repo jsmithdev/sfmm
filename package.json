@@ -1,0 +1,32 @@
+{
+  "name": "sfmm",
+  "type": "module",
+  "version": "1.0.4",
+  "description": "A CLI tool to manage Salesforce modules",
+  "main": "index.js",
+  "author": "jsmithdev",
+  "license": "ISC",
+  "bin": {
+    "sfmm": "./bin/cli.js"
+  },
+  "scripts": {
+    ".": "npm run start",
+    "start": "node index.js",
+    "watch": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+	"salesforce",
+	"module",
+	"cli",
+	"lwc",
+	"apex"
+  ],
+  "repository": {
+	"type": "git",
+	"url": "https://github.com/jsmithdev/sfmm.git"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
