@@ -28,11 +28,11 @@ sfmm add <author> <repo> [flags]`
 
 Flags:
 
-    -a, --all - Include all files
-    -d, --dev - Include dev dependencies
-    -g, --gh - Use GitHub as remote (default)
-    -h, --help - Show this help message
-    -s, --save - Save to config file
+    -a, --all  : Include all files
+    -d, --dev  : Include dev dependencies
+    -g, --gh   : Use GitHub as remote (default)
+    -h, --help : Show this help message
+    -s, --save : Save to config file
 
 Examples:
 
