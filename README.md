@@ -14,6 +14,10 @@ Usage:
 sfmm <action> <author> <repo> [flags]
 ```
 
+> Alternatively if you prefer npx to installing globally, using in CI/CD workflow, etc you can use:
+> 
+> `npx sfmm <action> <repo> [flags]`
+ 
 ## Actions
 
 ### add
