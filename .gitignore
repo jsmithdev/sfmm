@@ -1,6 +1,11 @@
+# project specific files
 node_modules
-force-app
 scratch
 todo
+
+# sf files used during development
+.sfdx
+.forceignore
+force-app
 sfdx-project.json
 .sfmm.json
