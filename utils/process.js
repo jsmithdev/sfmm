@@ -63,19 +63,19 @@ export async function processChecks(config){
 	// save flag for storing imports in a project config file
 	if(checkFlag(flags, '--save', 's')){
 
-		const configName = path.join(cwd, '.sfmm.json');
+		const configPath = path.join(cwd, '.sfmm.json');
 
-		const hasConfig = await checkFileExists(configName);
+		const hasConfig = await checkFileExists(configPath);
 		
 		// check if config file exists
 		if(!hasConfig){
 			console.log('Creating config file...');
 			// if not create it
-			await fs.writeFile(configName, JSON.stringify({}));
+			await fs.writeFile(configPath, JSON.stringify({}));
 		}
 
 		// add author and repo to config file
-		const config = await fs.readFile(configName, 'utf8');
+		const config = await fs.readFile(configPath, 'utf8');
 
 		const json = JSON.parse(config);
 
@@ -87,7 +87,7 @@ export async function processChecks(config){
 
 		console.log('Updating config file...');
 		// save config file
-		await fs.writeFile(configName, JSON.stringify(json), 'utf-8');
+		await fs.writeFile(configPath, JSON.stringify(json), 'utf-8');
 	}
 }
 
