@@ -14,10 +14,12 @@ Usage:
 sfmm <action> <author> <repo> [flags]
 ```
 
-> Alternatively if you prefer npx to installing globally, using in CI/CD workflow, etc you can use:
-> 
-> `npx sfmm <action> <repo> [flags]`
- 
+For one offs, using in CI/CD workflows, etc you can use npx:
+
+```bash
+npx sfmm <action> <repo> [flags]
+```
+
 ## Actions
 
 ### add
@@ -32,11 +34,13 @@ sfmm add <author> <repo> [flags]`
 
 Flags:
 
+```bash
     -a, --all  : Include all files
     -d, --dev  : Include dev dependencies
     -g, --gh   : Use GitHub as remote (default)
     -h, --help : Show this help message
     -s, --save : Save to config file
+```
 
 Examples:
 

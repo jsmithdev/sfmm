@@ -6,13 +6,13 @@ import {
 	checkFileExists,
 } from './local.js';
 
+import {
+	printHelp,
+} from './help.js';
+
 const {
 	version,
-} = JSON.parse(
-	await fs.readFile(
-	  new URL('../package.json', import.meta.url)
-	)
-);
+} = JSON.parse( await fs.readFile( new URL('../package.json', import.meta.url) ));
 
 const [,, ...args]  = process.argv;
 
@@ -23,6 +23,7 @@ const [ action, author, repo ]	= args;
 const flags = args.filter(a => a.startsWith('--') || a.startsWith('-'));
 
 const ignore = !checkFlag(flags, '--all', 'a');
+const gitIgnore = !checkFlag(flags, '--ignore', 'i');
 
 const ignores = [
 	'example',
@@ -36,19 +37,20 @@ export {
 	flags,
 	ignore,
 	ignores,
+	gitIgnore,
 };
 
 export async function processChecks(config){
 
+	// check dev, version and help prior to any exits
 	if(checkFlag(flags, '--dev', 'd')){
 		process.env.NODE_ENV = 'development';
 	}
 	if(checkFlag(flags, '--version', 'v')){
 		console.log(version);
 	}
-	// check help prior to any exits
 	if(checkFlag(flags, '--help', 'h')){
-		help();
+		await printHelp(version);
 	}
 
 	// exit on required args
@@ -115,31 +117,4 @@ export async function getConfig(){
 
 export function checkFlag(flags, flag, shortFlag){
 	return flags.includes(flag) || flags.some(x => x.includes(shortFlag))
-}
-
-function help(){
-	console.log(`
-
-sfmm - Salesforce Module Manager (v${version})
-
-Usage: sfmm <action> <author> <repo> [flags]
-
-Actions:
-	
-  add: Add modules from a remote sfdx project to your current sfdx project
-
-	Usage: sfmm add <author> <repo> [flags]
-
-	Flags:
-	--all, -a	Include all files
-	--dev, -d	Include dev dependencies
-	--gh, -g	Use GitHub as remote (default)
-	--help, -h	Show this help message
-	--save, -s	Save to config file
-
-	Examples:
-	sfmm add jsmithdev modal # install modal component to current sfdx project's lwc directory
-	sfmm add jsmithdev modal --save # install modal component to current sfdx project's lwc directory and save to config file
-	sfmm add jsmithdev modal -gs # using short flags together
-`)
 }

@@ -20,8 +20,11 @@ if(config.action === 'add'){
 	
 	console.log('Done!');
 }
-else if(config.action.includes('-')){
+else if(config.action?.includes('-')){
 	// nothing to do
+}
+else if(config.action === undefined){
+	console.warn('No action specified');
 }
 else {
 	console.log('Unknown action', config.action);
