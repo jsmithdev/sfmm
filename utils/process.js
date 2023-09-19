@@ -4,6 +4,7 @@ import fs from 'fs/promises';
 import {
 	getInstallPath,
 	checkFileExists,
+	addToConfigFile,
 } from './local.js';
 
 import {
@@ -79,19 +80,11 @@ export async function processChecks(config){
 		}
 
 		// add author and repo to config file
-		const config = await fs.readFile(configPath, 'utf8');
-
-		const json = JSON.parse(config);
-
-		json[`${author}/${repo}`] = {
+		addToConfigFile({
+			configPath,
 			author,
 			repo,
-			mod: new Date().toISOString(),
-		}
-
-		console.log('Updating config file...');
-		// save config file
-		await fs.writeFile(configPath, JSON.stringify(json), 'utf-8');
+		})
 	}
 }
 
