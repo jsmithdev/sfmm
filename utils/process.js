@@ -19,7 +19,11 @@ const [,, ...args]  = process.argv;
 
 const cwd = process.cwd();
 
-const [ action, author, repo ]	= args;
+const [ action, init_author, init_repo ]	= args;
+
+const isNotUrl = !init_author?.includes('http');
+const author = isNotUrl ? init_author : getAuthorFromUrl(init_author);
+const repo = isNotUrl ? init_repo : getRepoFromUrl(init_author);
 
 const flags = args.filter(a => a.startsWith('--') || a.startsWith('-'));
 
@@ -114,4 +118,12 @@ export async function getConfig(){
 
 export function checkFlag(flags, flag, shortFlag){
 	return flags.includes(flag) || flags.some(x => x.includes(shortFlag))
+}
+
+function getAuthorFromUrl(s){
+	return s.substring(s.lastIndexOf('com/')+4, s.lastIndexOf('/'));
+}
+
+function getRepoFromUrl(s){
+	return s.substring(s.lastIndexOf('/') + 1);
 }
