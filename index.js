@@ -7,6 +7,10 @@ import {
 	downloadFiles,
 } from './utils/remote.js';
 
+import {
+	removeFiles,
+} from './utils/local.js';
+
 
 const config = await getConfig();
 
@@ -17,6 +21,14 @@ if(config.action === 'add'){
 	console.log('Adding to', config.localBasePath);
 
 	await downloadFiles(config);
+	
+	console.log('Done!');
+}
+else if(config.action === 'remove'){
+
+	console.log('Removing from', config.localBasePath);
+
+	await removeFiles(config);
 	
 	console.log('Done!');
 }
