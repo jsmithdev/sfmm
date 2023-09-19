@@ -20,6 +20,12 @@ For one offs, using in CI/CD workflows, etc you can use npx:
 npx sfmm <action> <repo> [flags]
 ```
 
+For help, use the `-h` or `--help` flag:
+
+```bash
+sfmm -h
+```
+
 ## Actions
 
 ### add
@@ -29,7 +35,7 @@ Add modules from a remote sfdx project to your current sfdx project
 Usage:
 
 ```bash
-sfmm add <author> <repo> [flags]`
+sfmm add <author> <repo> [flags]
 ```
 
 Flags:
@@ -40,6 +46,7 @@ Flags:
     -g, --gh   : Use GitHub as remote (default)
     -h, --help : Show this help message
     -s, --save : Save to config file
+    -i, --ignore : Save to config file
 ```
 
 Examples:
@@ -57,6 +64,23 @@ sfmm add jsmithdev modal --save
 ```bash
 # using short flags together
 sfmm add jsmithdev modal -gs
+```
+
+### remove
+
+Remove module from your current sfdx project and sfmm config file
+
+Usage:
+
+```bash
+sfmm remove <author> <repo>
+```
+
+Examples:
+
+```bash
+# remove modal component and from .sfmm config file
+sfmm remove jsmithdev extenda-modal
 ```
 
 ## Development
