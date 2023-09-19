@@ -7,6 +7,7 @@ import {
 import {
 	getRemoteDirs,
 	getRemoteFilePaths,
+	getCommitUrl,
 } from './remote.js';
 
 const cwd = process.cwd();
@@ -98,11 +99,14 @@ export async function addToConfigFile({
 
 	const config = await fs.readFile(configPath, 'utf8');
 
+	const commit = await getCommitUrl(author, repo);
+
 	const json = JSON.parse(config);
 
 	json[`${author}/${repo}`] = {
 		author,
 		repo,
+		commit,
 		mod: new Date().toISOString(),
 	}
 

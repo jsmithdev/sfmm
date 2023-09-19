@@ -142,3 +142,11 @@ export async function getRemoteItems(url){
 
 	return items;
 }
+
+export async function getCommitUrl(author, repo){
+
+	const response = await fetch(`https://api.github.com/repos/${author}/${repo}/commits/HEAD`);
+	const json = await response.json();
+
+	return json?.commit?.url;
+}
