@@ -6,6 +6,7 @@ todo
 # sf files used during development
 .sfdx
 .forceignore
-force-app
 sfdx-project.json
 .sfmm.json
+extendaModal
+extendaModal

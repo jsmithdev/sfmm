@@ -23,13 +23,14 @@ const [ action, author, repo ]	= args;
 const flags = args.filter(a => a.startsWith('--') || a.startsWith('-'));
 
 const ignore = !checkFlag(flags, '--all', 'a');
-const gitIgnore = !checkFlag(flags, '--ignore', 'i');
+const gitIgnore = checkFlag(flags, '--ignore', 'i');
 
 const ignores = [
 	'example',
 	'demo',
 	'eslintrc',
 	'jsconfig',
+	'jsconfig.json',
 ];
 
 
@@ -37,7 +38,6 @@ export {
 	flags,
 	ignore,
 	ignores,
-	gitIgnore,
 };
 
 export async function processChecks(config){
@@ -52,6 +52,8 @@ export async function processChecks(config){
 	if(checkFlag(flags, '--help', 'h')){
 		await printHelp(version);
 	}
+
+	config.gitIgnore = gitIgnore;
 
 	// exit on required args
 	if((!author || !repo) && config.action === 'add'){
@@ -112,6 +114,8 @@ export async function getConfig(){
 		initUrl,
 		action,
 		remote: 'github',
+		authorName: author,
+		repoName: repo,
 	}
 }
 

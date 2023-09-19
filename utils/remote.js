@@ -10,9 +10,13 @@ import {
 	ignores,
 } from './process.js';
 
+import {
+	appendArrayToGitIgnore,
+} from './local.js';
+
 
 const streamPipeline = promisify(pipeline);
-
+const toGitIgnore = [];
 
 export async function downloadFiles(input){
 
@@ -27,12 +31,30 @@ export async function downloadFiles(input){
 	}
 
 	for(const key of Object.keys(config)){
+
 		console.log(`Getting ${key} files`)
 		const filePaths = config[key];
 		for(const path of filePaths){
+			
 			console.log(`Getting ${path}`)
 			await downloadFile(path, key, input)
+
+			if(input.gitIgnore){
+				const name = path.includes('lwc')
+					? path.substring( path.lastIndexOf('/')+1, path.indexOf('.'))
+					: path.substring( path.lastIndexOf('/')+1, path.length);
+				if(!toGitIgnore.includes(name)){
+					toGitIgnore.push(name);
+				}
+			}
 		}
+	}
+
+	if(toGitIgnore.length > 0){
+		
+		console.log(`Adding ${toGitIgnore.length} ${toGitIgnore.length > 1 ? 'lines' : 'line'} to .gitignore`)
+		await appendArrayToGitIgnore(toGitIgnore);
+		toGitIgnore.length = 0;
 	}
 }
 

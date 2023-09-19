@@ -1,3 +1,4 @@
+import path from 'node:path';
 import fs from 'fs/promises';
 import {
 	access,
@@ -14,8 +15,6 @@ export async function getInstallPath(){
 	const { packageDirectories } = JSON.parse(json);
 
 	const [ config ] = packageDirectories;
-
-	config //?
 	
 	if(config.path === 'force-app' && config.default === true){
 		return `${cwd}/${config.path}/main/default`;
@@ -27,4 +26,15 @@ export async function getInstallPath(){
 
 export function checkFileExists(path) {
 	return new Promise(res => access(path, constants.F_OK, e => e ? res(false) : res(true)));
+}
+
+export async function appendArrayToGitIgnore(names){
+
+	const text = names.map(name => `\n${name}`).join('');
+
+	await fs.appendFile( 
+		path.join(cwd, '.gitignore'),
+		text,
+		'utf8',
+	);
 }
