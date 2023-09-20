@@ -32,6 +32,7 @@ Flags:
 
 ```bash
     -h, --help : Print out help message
+    -v, --version : Print out install version of sfmm
     -d, --dev  : Development mode (more logs)
 ```
 
