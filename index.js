@@ -18,7 +18,7 @@ await processChecks(config);
 
 if(config.action === 'add'){
 
-	console.log('Adding to', config.localBasePath);
+	console.log('\nAdding to', config.localBasePath);
 
 	await downloadFiles(config);
 	
@@ -26,7 +26,7 @@ if(config.action === 'add'){
 }
 else if(config.action === 'remove'){
 
-	console.log('Removing from', config.localBasePath);
+	console.log('\nRemoving from', config.localBasePath);
 
 	await removeFiles(config);
 	
