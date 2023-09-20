@@ -5,9 +5,8 @@ import {
 	constants
 } from 'node:fs';
 import {
-	getRemoteDirs,
-	getRemoteFilePaths,
 	getCommitUrl,
+	getRemoteDirConfig,
 } from './remote.js';
 
 const cwd = process.cwd();
@@ -46,18 +45,9 @@ export async function appendArrayToGitIgnore(names){
 
 export async function removeFiles(input){
 
-	const dirs = await getRemoteDirs(`${input.gitBaseUrl}/${input.initUrl}`);
-
-	const config = {}
-
-	for(const dir of dirs){
-		const dirs = await getRemoteFilePaths(dir, input.gitBaseUrl);
-		const name = dir.substring( dir.lastIndexOf('/')+1, dir.length);
-		config[ name ] = dirs;
-	}
+	const config = await getRemoteDirConfig(input);
 
 	const lwcDirs = [];
-
 
 	for(const key of Object.keys(config)){
 
@@ -109,10 +99,8 @@ export async function addToConfigFile({
 		commit,
 		mod: new Date().toISOString(),
 	}
-
-	console.log('Updating config file...');
-	// save config file
-	await fs.writeFile(configPath, JSON.stringify(json, null, '\t'), 'utf-8');
+	
+	await writeLocalConfigFile(json)
 }
 
 export async function removeFromConfigFile({
@@ -127,7 +115,14 @@ export async function removeFromConfigFile({
 
 	delete json[`${author}/${repo}`];
 
-	console.log('Updating config file...');
-	// save config file
-	await fs.writeFile(configPath, JSON.stringify(json, null, '\t'), 'utf-8', );
+	await writeLocalConfigFile(json)
+}
+
+async function writeLocalConfigFile(config){
+	console.log('Updating local .sfmm file...');
+	return fs.writeFile(
+		path.join(cwd, '.sfmm.json'),
+		JSON.stringify(config, null, '\t'),
+		'utf8',
+	);
 }
