@@ -28,17 +28,20 @@ You can also use a url:
 sfmm <action> <url> [flags]
 ```
 
-For help, use the `-h` or `--help` flag:
+Flags:
 
 ```bash
-sfmm -h
+    -h, --help : Print out help message
+    -d, --dev  : Development mode (more logs)
 ```
 
 ## Actions
 
 ### add
 
-Add modules from a remote sfdx project to your current sfdx project
+Add modules from a remote sfdx project to your current sfdx project. 
+
+Any dependency in the remote sfmm config file, if exists, will also be added.
 
 Usage:
 
@@ -55,12 +58,9 @@ sfmm add <url> [flags]
 Flags:
 
 ```bash
-    -a, --all  : Include all files
-    -d, --dev  : Include dev dependencies
-    -g, --gh   : Use GitHub as remote (default)
-    -h, --help : Show this help message
-    -s, --save : Save to config file
+    -s, --save   : Save to config file
     -i, --ignore : Append modules to .gitignore file
+    -a, --all    : Include all files (typically not wanted)
 ```
 
 Examples:

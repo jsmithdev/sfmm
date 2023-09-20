@@ -1,11 +1,11 @@
 {
   "name": "sfmm",
   "type": "module",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A CLI tool to manage Salesforce modules",
   "main": "index.js",
   "author": "jsmithdev",
-  "license": "ISC",
+  "license": "GPLv3",
   "bin": {
     "sfmm": "./bin/cli.js"
   },
