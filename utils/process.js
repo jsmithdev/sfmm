@@ -94,25 +94,32 @@ export async function processChecks(config){
 
 export async function getConfig(){
 
-	const localBasePath = await getInstallPath();
-	const gitBaseUrl = `https://github.com/${author}/${repo}/tree/main`;
-	const gitRawBaseUrl = `https://raw.githubusercontent.com/${author}/${repo}/main`;
-	const initUrl = `force-app/main/default`;
+	try {
+		const localBasePath = await getInstallPath();
+		const gitBaseUrl = `https://github.com/${author}/${repo}/tree/main`;
+		const gitRawBaseUrl = `https://raw.githubusercontent.com/${author}/${repo}/main`;
+		const initUrl = `force-app/main/default`;
 
-	if(!localBasePath){
-		console.log('Please run this command from a valid sfdx project');
-		process.exit(1);
+		if(!localBasePath){
+			console.log('Please run this command from a valid sfdx project');
+			process.exit(1);
+		}
+
+		return {
+			localBasePath,
+			gitBaseUrl,
+			gitRawBaseUrl,
+			initUrl,
+			action,
+			remote: 'github',
+			authorName: author,
+			repoName: repo,
+		}
 	}
-
-	return {
-		localBasePath,
-		gitBaseUrl,
-		gitRawBaseUrl,
-		initUrl,
-		action,
-		remote: 'github',
-		authorName: author,
-		repoName: repo,
+	catch(e){
+		console.log('Please run this command from a valid sfdx project');
+		//console.log(e);
+		process.exit(1);
 	}
 }
 
