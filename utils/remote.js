@@ -227,7 +227,7 @@ async function getRemoteConfig(url){
 
 	const uri = url.replace('/tree', '/blob')
 
-	const response = await fetch(`${uri}/.sfmm.json?raw=true`);
+	const response = await fetch(`${uri}/.sfmm?raw=true`);
 
 	try {
 		const json = await response.json();

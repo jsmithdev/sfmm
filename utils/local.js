@@ -75,7 +75,7 @@ export async function removeFiles(input){
 	}
 
 	await removeFromConfigFile({
-		configPath: path.join(cwd, '.sfmm.json'),
+		configPath: path.join(cwd, '.sfmm'),
 		author: input.authorName,
 		repo: input.repoName,
 	});
@@ -121,7 +121,7 @@ export async function removeFromConfigFile({
 async function writeLocalConfigFile(config){
 	console.log('Updating local .sfmm file...');
 	return fs.writeFile(
-		path.join(cwd, '.sfmm.json'),
+		path.join(cwd, '.sfmm'),
 		JSON.stringify(config, null, '\t'),
 		'utf8',
 	);

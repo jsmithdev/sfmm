@@ -72,7 +72,7 @@ export async function processChecks(config){
 	// save flag for storing imports in a project config file
 	if(checkFlag(flags, '--save', 's')){
 
-		const configPath = path.join(cwd, '.sfmm.json');
+		const configPath = path.join(cwd, '.sfmm');
 
 		const hasConfig = await checkFileExists(configPath);
 		

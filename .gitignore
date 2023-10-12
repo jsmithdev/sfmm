@@ -7,4 +7,5 @@ todo
 .sfdx
 .forceignore
 sfdx-project.json
-.sfmm.json
+.sfmm
+force-app/main/default/lwc/jsconfig.json
