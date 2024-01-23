@@ -12,6 +12,7 @@ import {
 	noAction,
 	unknownAction,
 	openInBrowser,
+	printReadme,
 } from './utils/actions.js';
 
 
@@ -27,6 +28,9 @@ else if(config.action === 'remove'){
 }
 else if(config.action === 'open'){
 	openInBrowser(config.gitBaseUrl);
+}
+else if(config.action === 'read'){
+	printReadme(config.gitRawReadme);
 }
 else if(config.action?.includes('-')){
 	// nothing to do

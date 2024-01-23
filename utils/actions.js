@@ -1,4 +1,6 @@
 import open from 'open';
+import cliMd from 'cli-markdown';
+
 
 import {
     downloadFiles,
@@ -30,6 +32,18 @@ export async function openInBrowser(url) {
 
     try {
         await open(url);
+    }
+    catch(e){
+        console.warn(e);
+    }
+}
+
+export async function printReadme(url) {
+
+    try {
+        console.log(
+            await cliMd(await fetch(url).then(x => x.text()))
+        );
     }
     catch(e){
         console.warn(e);

@@ -98,22 +98,24 @@ export async function getConfig(){
 		const localBasePath = await getInstallPath();
 		const gitBaseUrl = `https://github.com/${author}/${repo}/tree/main`;
 		const gitRawBaseUrl = `https://raw.githubusercontent.com/${author}/${repo}/main`;
+		const gitRawReadme = `${gitRawBaseUrl}/README.md?raw=true`;
 		const initUrl = `force-app/main/default`;
-
+		https://raw.githubusercontent.com/jsmithdev/extenda-modal/main
 		if(!localBasePath){
 			console.log('Please run this command from a valid sfdx project');
 			process.exit(1);
 		}
 
 		return {
+			action,
+			initUrl,
 			localBasePath,
 			gitBaseUrl,
 			gitRawBaseUrl,
-			initUrl,
-			action,
+			gitRawReadme,
+			repoName: repo,
 			remote: 'github',
 			authorName: author,
-			repoName: repo,
 		}
 	}
 	catch(e){
