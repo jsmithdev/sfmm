@@ -1,3 +1,6 @@
+import open from 'open';
+
+
 import {
 	processChecks,
 	getConfig,
@@ -8,6 +11,7 @@ import {
 	remove,
 	noAction,
 	unknownAction,
+	openInBrowser,
 } from './utils/actions.js';
 
 
@@ -21,6 +25,9 @@ if(config.action === 'add'){
 else if(config.action === 'remove'){
     remove(config);
 }
+else if(config.action === 'open'){
+	openInBrowser(config.gitBaseUrl);
+}
 else if(config.action?.includes('-')){
 	// nothing to do
 }
@@ -31,4 +38,4 @@ else {
     unknownAction(config.action);
 }
 
-process.exit(0);
+//process.exit(0);
