@@ -4,12 +4,11 @@ import {
 } from './utils/process.js';
 
 import {
-	downloadFiles,
-} from './utils/remote.js';
-
-import {
-	removeFiles,
-} from './utils/local.js';
+	add,
+	remove,
+	noAction,
+	unknownAction,
+} from './utils/actions.js';
 
 
 const config = await getConfig();
@@ -17,29 +16,19 @@ const config = await getConfig();
 await processChecks(config);
 
 if(config.action === 'add'){
-
-	console.log('\nAdding to', config.localBasePath);
-
-	await downloadFiles(config);
-	
-	console.log('Done!');
+    add(config);
 }
 else if(config.action === 'remove'){
-
-	console.log('\nRemoving from', config.localBasePath);
-
-	await removeFiles(config);
-	
-	console.log('Done!');
+    remove(config);
 }
 else if(config.action?.includes('-')){
 	// nothing to do
 }
 else if(config.action === undefined){
-	console.warn('No action specified');
+    noAction(config);
 }
 else {
-	console.log('Unknown action', config.action);
+    unknownAction(config.action);
 }
 
 process.exit(0);
