@@ -38,37 +38,20 @@ Flags:
 
 ## Actions
 
-### add
+> All actions can be used with \<url> or \<author> \<repo>
 
-Add modules from a remote sfdx project to your current sfdx project. 
+| Action | Description | Usage | Flags |
+| ------ | ----------- | ----- | ----- |
+| add | Add modules from a remote sfdx project to your current sfdx project | `sfmm add <url> [flags]` | `-s, --save : Save to config file` <br> `-i, --ignore : Append modules to .gitignore file` <br> `-a, --all : Include all files (typically not wanted)` |
+| remove | Remove module from your current sfdx project and sfmm config file | `sfmm remove <url>` | (N/A) |
+| open | Open the project in your default browser | `sfmm open <url>` | (N/A) |
+| read | Print the project's README.md to the console | `sfmm read <url>` | (N/A) |
 
-Any dependency in the remote sfmm config file, if exists, will also be added.
-
-Usage:
-
-```bash
-sfmm add <author> <repo> [flags]
-```
-
-or use a url:
+## Examples
 
 ```bash
-sfmm add <url> [flags]
-```
-
-Flags:
-
-```bash
-    -s, --save   : Save to config file
-    -i, --ignore : Append modules to .gitignore file
-    -a, --all    : Include all files (typically not wanted)
-```
-
-Examples:
-
-```bash
-# install modal component to current sfdx project's lwc directory
-sfmm add jsmithdev modal
+# install component to current sfdx project's lwc directory
+sfmm add jsmithdev extenda-modal
 ```
 
 ```bash
@@ -78,31 +61,13 @@ sfmm add https://github.com/jsmithdev/extenda-modal
 
 ```bash
 # install modal component to current sfdx project's lwc directory and save to config file
-sfmm add jsmithdev modal --save 
+sfmm add jsmithdev extenda-modal --save 
 ```
 
 ```bash
 # using short flags together
-sfmm add jsmithdev modal -si
+sfmm add jsmithdev extenda-modal -si
 ```
-
-### remove
-
-Remove module from your current sfdx project and sfmm config file
-
-Usage:
-
-```bash
-sfmm remove <author> <repo>
-```
-
-or with a url:
-
-```bash
-sfmm remove <url>
-```
-
-Examples:
 
 ```bash
 # remove modal component and from .sfmm config file
@@ -114,48 +79,12 @@ sfmm remove jsmithdev extenda-modal
 sfmm remove https://github.com/jsmithdev/extenda-modal
 ```
 
-### open
-
-Open the project in your default browser
-
-Usage:
-
 ```bash
 sfmm open <author> <repo>
 ```
 
-or with a url:
-
-```bash
-sfmm open <url>
-```
-
-Examples:
-
-```bash
-sfmm open jsmithdev extenda-modal
-```
-
-### read
-
-Print the project's README.md to the console
-
-Usage:
-
 ```bash
 sfmm read <author> <repo>
-```
-
-or with a url:
-
-```bash
-sfmm read <url>
-```
-
-Examples:
-
-```bash
-sfmm read jsmithdev extenda-modal
 ```
 
 ## Development
