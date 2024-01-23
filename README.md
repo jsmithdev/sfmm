@@ -114,6 +114,50 @@ sfmm remove jsmithdev extenda-modal
 sfmm remove https://github.com/jsmithdev/extenda-modal
 ```
 
+### open
+
+Open the project in your default browser
+
+Usage:
+
+```bash
+sfmm open <author> <repo>
+```
+
+or with a url:
+
+```bash
+sfmm open <url>
+```
+
+Examples:
+
+```bash
+sfmm open jsmithdev extenda-modal
+```
+
+### read
+
+Print the project's README.md to the console
+
+Usage:
+
+```bash
+sfmm read <author> <repo>
+```
+
+or with a url:
+
+```bash
+sfmm read <url>
+```
+
+Examples:
+
+```bash
+sfmm read jsmithdev extenda-modal
+```
+
 ## Development
 
 ```bash
