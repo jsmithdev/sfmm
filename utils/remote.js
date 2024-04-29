@@ -129,7 +129,7 @@ export async function getRemoteDirs(url){
 	const items = await getRemoteItems(url);
 
 	const dirs = items
-		.filter(i => i.contentType === 'directory')
+		.filter(i => i.type === 'dir')
 		.map(i => i.path)
 
 	if(ignore){
@@ -142,13 +142,8 @@ export async function getRemoteDirs(url){
 export async function getRemoteItems(url){
 
 	const response = await fetch(url);
-	const text = await response.text();
 
-	const { payload } = JSON.parse(text);
-	const { tree } = payload;
-	const { items } = tree;
-
-	return items;
+	return response.json();
 }
 
 /**
@@ -172,12 +167,14 @@ export async function getCommitUrl(author, repo){
  * */
 export async function getRemoteDirConfig(input){
 
-	const dirs = await getRemoteDirs(`${input.gitBaseUrl}/${input.initUrl}`);
+	const dirs = await getRemoteDirs(`${input.contentsUrl}`);
+
+	console.log(`Getting ${dirs.length} directories from ${input.contentsUrl}`)
 
 	const config = {}
 
 	for(const dir of dirs){
-		const dirs = await getRemoteFilePaths(input.gitBaseUrl, dir);
+		const dirs = await getRemoteFilePaths(dir, input);
 		const name = dir.substring( dir.lastIndexOf('/')+1, dir.length);
 		config[ name ] = dirs;
 	}
@@ -187,15 +184,13 @@ export async function getRemoteDirConfig(input){
 
 /**
  * Recursively get all file paths in a remote directory
- * @param {string} gitBaseUrl
  * @param {string} dir
+ * @param {string} input
  * @returns {string[]} file paths
  *  */
-async function getRemoteFilePaths( gitBaseUrl, dir ){
-	
-	const url = `${gitBaseUrl}/${dir}`;
+async function getRemoteFilePaths( dir, input ){
 
-	const items = await getRemoteItems(url);
+	const items = await getRemoteItems(input.getContentsUrl(dir));
 
 	let files = [];
 
@@ -204,11 +199,11 @@ async function getRemoteFilePaths( gitBaseUrl, dir ){
 		if(ignore && ignores.some(x => item.path.includes(x))){
 			continue;
 		}
-		if(item.contentType === 'file'){
+		if(item.type === 'file'){
 			files = [...files, item.path];
 		}
-		if(item.contentType === 'directory'){
-			const subFiles = await getRemoteFilePaths( gitBaseUrl, item.path );
+		if(item.type === 'dir'){
+			const subFiles = await getRemoteFilePaths( item.path, input );
 			files = [...files, ...subFiles];
 		}
 	}

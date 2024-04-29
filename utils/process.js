@@ -100,6 +100,9 @@ export async function getConfig(){
 		const gitRawBaseUrl = `https://raw.githubusercontent.com/${author}/${repo}/main`;
 		const gitRawReadme = `${gitRawBaseUrl}/README.md?raw=true`;
 		const initUrl = `force-app/main/default`;
+		//const apiBaseUrl = `https://api.github.com/repos/${author}/${repo}/git/trees/main?recursive=1`;
+		const apiBaseUrl = `https://api.github.com/repos/${author}/${repo}/contents/`;
+		
 		https://raw.githubusercontent.com/jsmithdev/extenda-modal/main
 		if(!localBasePath){
 			console.log('Please run this command from a valid sfdx project');
@@ -116,6 +119,12 @@ export async function getConfig(){
 			repoName: repo,
 			remote: 'github',
 			authorName: author,
+			get contentsUrl(){
+				return `${apiBaseUrl}${this.initUrl}?ref=main`;
+			},
+			getContentsUrl: function(path){
+				return `${apiBaseUrl}${path}?ref=main`;
+			},
 		}
 	}
 	catch(e){
